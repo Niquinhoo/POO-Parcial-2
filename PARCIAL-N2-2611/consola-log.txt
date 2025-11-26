@@ -1,0 +1,61 @@
+PS C:\Users\nicot\Desktop\POO-Parcial-2\PARCIAL-N2-2611> cd src
+PS C:\Users\nicot\Desktop\POO-Parcial-2\PARCIAL-N2-2611\src> javac App.java
+PS C:\Users\nicot\Desktop\POO-Parcial-2\PARCIAL-N2-2611\src> java App.java
+
+###Creo la instancia library, en la que recibio 4 veces a addBook, si imprimo las estadisticas siginifica que el sistema recorrio la lista y contó todos los que tenian estaban disponibles
+
+--- Sistema de Gestion de Biblioteca ---
+=== ESTADÍSTICAS DE LA BIBLIOTECA ===
+- Total de Libros: 4
+- Disponibles: 4
+- Prestados: 0
+
+###Aca probé si mi busqueda por isbn, autor y titulo funcionaba, se filtraron de manera correcta los 2 libros que coincidian y los imprimio. 
+--- Pruebas de busqueda ---
+Buscar ISBN-002: El Quijote
+Buscar Autor 'Marquez':
+   -> Cien Años de Soledad
+   -> El Amor en los Tiempos del Cólera
+Buscar Título 'Code':
+   -> Encontrado: Clean Code
+
+###Al llamar a undoLastLoan, el sistema saco el libro de la cima de la pila, entonces ejecturo el returnBook sobre ese mismo libro, dejandoló disponible
+
+--- Prueba de préstamos y deshacer ---
+Libro 'Cien Años de Soledad' prestado a Juan Perez
+Estado 'Cien Años...': PRESTADO
+
+Error, deshaciendo último préstamo...
+Se deshizo el préstamo del libro: Cien Años de Soledad
+Estado tras deshacer: DISPONIBLE
+
+###Ana se lleva el libro entonces pasa a estar ocupado, carlos y diana intentan pedir el mismo libro, pero como no esta disponible, se agregan a la cola de espera 
+
+--- Prueba de queue ---
+Libro 'Clean Code' prestado a Ana Gomez
+
+Intento prestar un libro ya prestado...
+El libro no está disponible. Agregando a Carlos Lopez a la cola de espera...
+El usuario Carlos Lopez se agrego a la lista de espera, para el libroClean Code
+El libro no está disponible. Agregando a Diana Ruiz a la cola de espera...
+El usuario Diana Ruiz se agrego a la lista de espera, para el libroClean Code
+
+###Aca ana devuelve el libro, el metodo returnBook() detecta que la cola no está vacia, por lo que desencola a Carlos Lopez y le asigna el libro
+
+Ana devuelve el libro...
+El libro se asigno automaticamente a la reserva de Carlos Lopez
+
+
+Estado 'Clean Code': PRESTADO
+
+###Elimino el libro para bajar el total de 4 a 3
+Libro 'El Quijote' eliminado exitosamente
+
+--- Prueba de estadísticas ---
+
+=== ESTADÍSTICAS DE LA BIBLIOTECA ===
+- Total de Libros: 3
+- Disponibles: 2
+- Prestados: 1
+
+PS C:\Users\nicot\Desktop\POO-Parcial-2\PARCIAL-N2-2611\src> 
