@@ -1,6 +1,9 @@
 package estandar;
 
+import java.util.Objects;
+
 public class ListaEnlazada {
+    // Tamaño de la lista
     protected Nodo inicio;
     protected Nodo fin;
     protected int tamano;
@@ -10,11 +13,11 @@ public class ListaEnlazada {
         this.fin = null;
         this.tamano = 0;
     }
-
+    //Comprueba si tengo o no elementos en el principio, si tengo, significa que hay datos
     public boolean esVacia(){
         return inicio == null;
     }
-
+    //Agrega un nodo nuevo al principio
     public void insertarInicio(Object dato){
         Nodo nuevo = new Nodo(dato);
         if (esVacia()){
@@ -26,7 +29,7 @@ public class ListaEnlazada {
         }
         tamano++;
     }
-
+    //Agrega un nodo nuevo al final
     public void insertarFinal(Object dato){
         Nodo nuevo = new Nodo(dato);
         if (esVacia()){
@@ -38,7 +41,7 @@ public class ListaEnlazada {
         }
         tamano++;
     }
-
+    //Elimina y devuelve el primer elemento de la lista y pasa al siguiente para ser el nuevo inicio
     public Object eliminarInicio(){
         if (esVacia()){
             return null;
@@ -51,26 +54,34 @@ public class ListaEnlazada {
         }
         return dato;
     }
-
+    //Elimina y devuelve el final elemento de la lista y lo actualiza a un nuevo "Fin"
     public Object eliminarFinal(){
         if (esVacia()){
             return null;
         }
         Object dato = fin.dato;
-        tamano--;
-        if (fin == null){
-            this.inicio = null;
+        if (inicio == fin) {
+            inicio = null;
+            fin = null;
+        } else {
+            Nodo actual = inicio;
+            while (actual.siguiente != fin) {
+                actual = actual.siguiente;
+            }
+            actual.siguiente = null;
+            fin = actual;
         }
+        tamano--;
         return dato;
     }
-
+    //Carga el inicio en memoria 
     public Object verInicio(){
         if (esVacia()){
             return null;
         }
         return inicio.dato;
     }
-
+    //Cuenta la cantidad de elementos que hay, en esta funcion no lo hace especificamente
     public int getTamano(){
         return tamano;
     }
@@ -89,20 +100,20 @@ public class ListaEnlazada {
 
     // Eliminar un objeto específico 
     public boolean eliminar(Object dato) {
-        if (esVacia()) return false;
+        if (esVacia()) {
+            return false;
+        }
 
-        // Caso especial: es el primero
-        if (inicio.dato.equals(dato)) {
+        if (Objects.equals(inicio.dato, dato)) {
             eliminarInicio();
             return true;
         }
 
-        // Buscar el objeto
         Nodo actual = inicio;
         while (actual.siguiente != null) {
-            if (actual.siguiente.dato.equals(dato)) {
+            if (Objects.equals(actual.siguiente.dato, dato)) {
                 actual.siguiente = actual.siguiente.siguiente;
-                if (actual.siguiente == null) { // Si eliminamos el último
+                if (actual.siguiente == null) {
                     fin = actual;
                 }
                 tamano--;
@@ -111,6 +122,23 @@ public class ListaEnlazada {
             actual = actual.siguiente;
         }
         return false;
+    }
+    // verifica el input, y si existe, devuelve el proximo
+    public boolean contiene(Object dato) {
+        Nodo actual = inicio;
+        while (actual != null) {
+            if (Objects.equals(actual.dato, dato)) {
+                return true;
+            }
+            actual = actual.siguiente;
+        }
+        return false;
+    }
+    //elimina todo
+    public void limpiar() {
+        inicio = null;
+        fin = null;
+        tamano = 0;
     }
 
 }

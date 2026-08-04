@@ -22,4 +22,8 @@ public class Cola {
     public boolean esVacia(){
         return lista.esVacia();
     }
+
+    public int getTamano(){
+        return lista.getTamano();
+    }
 }
